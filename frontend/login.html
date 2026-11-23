@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Giriş Yap | Grup1_AuthProject</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="auth-card">
+    <div class="auth-header">
+      <span class="badge">AUTH-2 • Giriş Modülü</span>
+      <h1>Tekrar Hoş Geldiniz</h1>
+      <p>Devam etmek için hesap bilgilerinizle giriş yapın.</p>
+    </div>
+
+    <form id="loginForm" novalidate>
+      <div class="form-group">
+        <label for="loginEmail">E-posta Adresi</label>
+        <input type="email" id="loginEmail" name="email" placeholder="ornek@isubu.edu.tr" required />
+      </div>
+
+      <div class="form-group">
+        <label for="loginPassword">Şifre</label>
+        <input type="password" id="loginPassword" name="password" placeholder="Şifrenizi girin" required />
+      </div>
+
+      <div class="form-row">
+        <label class="checkbox-label">
+          <input type="checkbox" id="rememberMe" />
+          <span>Beni hatırla</span>
+        </label>
+        <a href="reset-password.html">Şifremi unuttum</a>
+      </div>
+
+      <button type="submit" class="btn-primary">Giriş Yap</button>
+      <div id="loginFeedback" class="feedback" role="alert"></div>
+    </form>
+
+    <div class="auth-footer">
+      Hesabınız yok mu? <a href="register.html">Kayıt Olun</a>
+    </div>
+  </main>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const loginFeedback = document.getElementById('loginFeedback');
+
+    function showLoginMessage(message, type) {
+      loginFeedback.textContent = message;
+      loginFeedback.className = 'feedback ' + type;
+    }
+
+    loginForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      const rememberMe = document.getElementById('rememberMe').checked;
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        return showLoginMessage('Lütfen geçerli bir e-posta adresi giriniz.', 'error');
+      }
+
+      if (!password || password.length < 8) {
+        return showLoginMessage('Şifre en az 8 karakter olmalıdır.', 'error');
+      }
+
+      const rememberNote = rememberMe ? ' (Oturum hatırlanacak)' : '';
+      showLoginMessage('Giriş doğrulaması başarılı.' + rememberNote, 'success');
+    });
+  </script>
+</body>
+</html>
