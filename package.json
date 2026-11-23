@@ -1,0 +1,11 @@
+{
+  "name": "grup1-auth-project",
+  "version": "1.0.0",
+  "description": "Authentication Module for Jira & GitHub Kanban Lab 1",
+  "main": "backend/registerApi.js",
+  "scripts": {
+    "test": "node tests/auth.integration.test.js"
+  },
+  "author": "Muhammet Emin Pişkin",
+  "license": "MIT"
+}
