@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kayıt Ol | Grup1_AuthProject</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="auth-card">
+    <div class="auth-header">
+      <span class="badge">AUTH-1 • Kayıt Modülü</span>
+      <h1>Hesap Oluştur</h1>
+      <p>Authentication modülüne erişmek için kayıt olun.</p>
+    </div>
+
+    <form id="registerForm" novalidate>
+      <div class="form-group">
+        <label for="fullName">Ad Soyad</label>
+        <input type="text" id="fullName" name="fullName" placeholder="Örn: Muhammet Emin Pişkin" required />
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-posta Adresi</label>
+        <input type="email" id="email" name="email" placeholder="ornek@isubu.edu.tr" required />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Şifre</label>
+        <input type="password" id="password" name="password" placeholder="En az 8 karakter" required />
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Şifre Tekrar</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Şifrenizi tekrar girin" required />
+      </div>
+
+      <button type="submit" class="btn-primary">Kayıt Ol</button>
+      <div id="registerFeedback" class="feedback" role="alert"></div>
+    </form>
+
+    <div class="auth-footer">
+      Zaten bir hesabınız var mı? <a href="login.html">Giriş Yapın</a>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById('registerForm');
+    const feedback = document.getElementById('registerFeedback');
+
+    function showMessage(message, type) {
+      feedback.textContent = message;
+      feedback.className = 'feedback ' + type;
+    }
+
+    form.addEventListener('submit', function (event) {
+      event.preventDefault();
+
+      const fullName = document.getElementById('fullName').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const confirmPassword = document.getElementById('confirmPassword').value;
+
+      if (fullName.length < 3) {
+        return showMessage('Ad soyad en az 3 karakter olmalıdır.', 'error');
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        return showMessage('Lütfen geçerli bir e-posta adresi giriniz.', 'error');
+      }
+
+      if (password.length < 8) {
+        return showMessage('Şifre en az 8 karakter uzunluğunda olmalıdır.', 'error');
+      }
+
+      if (password !== confirmPassword) {
+        return showMessage('Şifreler birbiriyle eşleşmiyor.', 'error');
+      }
+
+      showMessage('Kayıt formu doğrulandı. Hesabınız oluşturulmaya hazır.', 'success');
+    });
+  </script>
+</body>
+</html>
